@@ -22,11 +22,11 @@ var buttonD = document.getElementById("D");
 var timeLeft = 90;
 var timeInterval;
 var scoreOverall = 0;
-var questionCurrentIndex = 0;
-var questionFinalIndex = quizQuestions.length;
+var currentQuestionIndex = 0;
+var finalQuestionIndex = quizQuestions.length;
 var correct;
 
-// Oject for Quiz questions 
+// Object for Quiz questions.
 var quizQuestions =[{
     question: "What is the correct JavaScript syntax to write 'Hello World'?",
     optionA: "System.out.println('Hello World')",
@@ -68,26 +68,27 @@ var quizQuestions =[{
     optionB: "Docuemnt Object Model",
     optionC: "Decrease Ordinance Mode",
     optionD: "Digital Operation Max",
-    correctAnswer: ""},
+    correctAnswer: "B"},
 
 ];
 
 // A funtion for going through the arrays that contain the quiz questions. They generate the questions and answers.
 function generateQuizQuestion(){
     gameEndEl.style.display = "none";
-    if (questionCurrentIndex === questionFinalIndex){
+    if (currentQuestionIndex === finalQuestionIndex){
         return showScore();
     }
-    var questionCurrent = quiQuestions[questionCurrentIndex];
-        questionsEl.innerHTML = "<p>" + questionCurrent.question + "<p>";
+    var questionCurrent = quizQuestions[currentQuestionIndex];
+        questionsEl.innerHTML = "<p>" + 
+        questionCurrent.question + "<p>";
             buttonA.innerHTML = questionCurrent.optionA;
             buttonB.innerHTML = questionCurrent.optionB;
             buttonC.innerHTML = questionCurrent.optionC;
             buttonD.innerHTML = questionCurrent.optionD;
 };
 
-// The start quiz function that starts the timer. Will also had the buttons and disply the first quiz question.
-function startQiz(){
+// The start quiz function that starts the timer. Will also disply the first quiz question.
+function startQuiz(){
     gameEndEl.style.display = "none";
     startQuizEl.style.display = "none";
     generateQuizQuestion();
@@ -114,7 +115,7 @@ function showScore(){
 }
 
 // When we click submit we run the highscore function that saves and adds a string to the array of high scores 
-// saved in local storage. The new user name and score are push into the same array that is saved in local storage. 
+// saved in local storage. The new user name and score are pushed into the same array that is saved in local storage. 
 // It will then run the function to show high scores. 
 submitScoreBt.addEventListener("click", function highscore(){
 
@@ -148,16 +149,6 @@ function generateHighscores() {
     }
 }
 
-// This function displays high scores while hiding all the other elements.
-function showHighscore(){
-    startQuizEl.style.display = "none";
-    gameEndEl.style.display = "none";
-    highscoreCont.style.display = "flex";
-    highscorePage.style.display = "block";
-    gameEndBt.style.display = "flex";
-    generateHighscores();
-}
-
 // This function clears the text from the high score board and clears the high scores from local storage.
 function clearScore(){
     window.localStorage.clear();
@@ -172,15 +163,13 @@ function replayQuiz(){
     startQuizEl.style.display = "flex";
     timeLeft = 90;
     score = 0;
-    questionCurrentIndex = 0;
+    currentQuestionIndex = 0;
 }
 
 // This function checks the answers 
 function checkAnswer(answer){
-    correct = quizQuestions[questionCurrentIndex].correctAnswer;
-    if (answer === correct && 
-        questionCurrentIndex !== 
-        questionFinalIndex) {
+    correct = quizQuestions[currentQuestionIndex].correctAnswer;
+    if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
         score++;
         alert("Correct!");
         questionCurrentIndex++;
