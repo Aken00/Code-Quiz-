@@ -7,6 +7,6 @@ On the starter page and after you finish the quiz there is a high-score button t
 You can clear the scores if you wish or play the quiz again.
 
 ## Web Link
-Visit deplyed project at: https://aken00.github.io/Code-Quiz-AK/
+Visit deployed project at: https://aken00.github.io/Code-Quiz-AK/
 
 ![Alt text](images/Challenge-4-SS.png)
