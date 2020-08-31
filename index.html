@@ -3,46 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quiz</title>
+    <title>Code Quiz </title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="Container">
+    <div class="container">
+
         <div id="startPage">
             <h2>Time to test your Javascript Knowledge</h2>
-            <button id="startButton" onclick="startQuiz()">Start Code Quiz</button>
-            <button id="startPageHS" onclick="showHighscore()">High Scores</button>
+        <button id="startQuizBt">Start Code Quiz</button>
+        <button id="startPageHighscore" onclick="showHighscore()">High Scores</button>
         </div>
 
         <div id="quiz">
-            <div id="timer">Time left- </div>
-                <div id="questions"><p>Questions</p></div>
-                    <buttion id="A" onclick="checkforAnswer('a')">a</buttion> 
-                    <buttion id="B" onclick="checkforAnswer('b')">b</buttion> 
-                    <buttion id="C" onclick="checkforAnswer('c')">c</buttion> 
-                    <buttion id="D" onclick="checkforAnswer('d')">d</buttion> 
+            <div id="timer">Time left: </div>
+                <div id="questions"><p>Questions Placeholder</p></div>
+                    <button id="a" onclick="checkAnswer('a')">A</button>
+                    <button id="b" onclick="checkAnswer('b')">B</button>
+                    <button id="c" onclick="checkAnswer('c')">C</button>
+                    <button id="d" onclick="checkAnswer('d')">D</button>
                 <div id="result"></div>
         </div>
         <div id="gameEnd">
+
             <div id="finalScore"></div>
-                <input type="text" size = "40" placeholder="Enter you name for high score" name="names" id="inputNames"/>
-                <button id="submitScore">Sumbit Score</button>
+            <input type="text" size = "40" placeholder="Enter you initials for high score" name="InputName" id="InputName"/>
+            <button id="submitScore">Submit Score</button>
         </div>
-        <div id="highscoreCont">
-            <div id="highscorePage">
-                <div id="highscoreHeader">
-                    <h3>User Name</h3>
-                    <h3>Score</h3>
-                </div>
-                <div id="highscoreName"></div>
-                <div id="highscoreScore"></div>
+        <div id=highscoreContainer>
+        <div id="highscorePage">
+            <div id="highscore-header">
+                <h3>User Initials</h3>
+                <h3>Score</h3>
             </div>
-            <div id="endgameButtons">
-                <button id="playAgain" onclick="replayQuiz()">Play Again</button>
-                <button id="clearHighscore" onclick="clearScore()">Clear Highscores</button>
-            </div>
+            <div id = "highscoreName"></div>
+            <div id = "highscoreScore"></div>
+        </div>
+        <div id="gameEndBt">
+            <button id="playAgain" onclick="replayQuiz()">Play Again</button>
+            <button id="clearHighscore" onclick="clearScore()">Clear Highscores</button>
         </div>
     </div>
-    <script src="./questions.js"></script>
+    </div>
+    <script src="questions.js"></script>
 </body>
 </html>

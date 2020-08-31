@@ -1,155 +1,174 @@
 // All HTML elements gathered
-var startQuizEl = document.getElementById("startpage");
-var startQuizBt = document.getElementById("startButton");
-var startpageHS = document.getElementById("startPageHS");
-var quizEl = document.getElementById("quiz");
-var timerEl = document.getElementById("timer");
-var questionsEl= document.getElementById("questions");
+var startPage = document.getElementById("startPage");
+var startQuizBt = document.getElementById("startQuizBt");
+var quizEL = document.getElementById("quiz");
+var TimerEl = document.getElementById("timer");
+var questionsEl = document.getElementById("questions");
 var resultsEl = document.getElementById("result");
-var gameEndEl = document.getElementById("gameEnd");
-var finalScoreEl = document.getElementById("finalscore");
-var inputNames = document.getElementById("inputNames");
+var gameEnd = document.getElementById("gameEnd");
+var finalScoreEl = document.getElementById("finalScore");
+var InputName = document.getElementById("InputName");
 var submitScoreBt = document.getElementById("submitScore");
-var highscoreCont = document.getElementById("highscoreCont");
+var highscoreCont = document.getElementById("highscoreContainer");
 var highscorePage = document.getElementById("highscorePage");
 var highscoreName = document.getElementById("highscoreName");
 var highscoreScore = document.getElementById("highscoreScore");
-var gameEndBt = document.getElementById("endgameButtons");
-var buttonA = document.getElementById("A");
-var buttonB = document.getElementById("B");
-var buttonC = document.getElementById("C");
-var buttonD = document.getElementById("D");
-var timeLeft = 90;
-var timeInterval;
-var scoreOverall = 0;
-var currentQuestionIndex = 0;
-var finalQuestionIndex = quizQuestions.length;
-var correct;
+var gameEndBt = document.getElementById("gameEndBt");
+var buttonA = document.getElementById("a");
+var buttonB = document.getElementById("b");
+var buttonC = document.getElementById("c");
+var buttonD = document.getElementById("d");
 
 // Object for Quiz questions.
 var quizQuestions =[{
     question: "What is the correct JavaScript syntax to write 'Hello World'?",
-    optionA: "System.out.println('Hello World')",
-    optionB: "println ('Hello World')",
-    optionC: "document.write('Hello World')",
-    optionD: "response.write('Hello World')",
-    correctAnswer: "C"},
+    choiceA: "System.out.println('Hello World')",
+    choiceB: "println ('Hello World')",
+    choiceC: "document.write('Hello World')",
+    choiceD: "response.write('Hello World')",
+    correctAnswer: "c"},
 {
     question: "What JavaScript keyword declares a variable?",
-    optionA: "if",
-    optionB: "var",
-    optionC: "for",
-    optionD: "const",
-    correctAnswer: "B"},
+    choiceA: "if",
+    choiceB: "var",
+    choiceC: "for",
+    choiceD: "const",
+    correctAnswer: "b"},
 {
     question: "The condition in an if / else statment is enclosed within ____.",
-    optionA: "parentheses",
-    optionB: "square brackets",
-    optionC: "quotes",
-    optionD: "curly brackets",
-    correctAnswer: "A"},
+    choiceA: "parentheses",
+    choiceB: "square brackets",
+    choiceC: "quotes",
+    choiceD: "curly brackets",
+    correctAnswer: "a"},
 {
     question: "A useful too used during development for printing content to the debugger is:",
-    optionA: "for loops",
-    optionB: "console.log",
-    optionC: "teminal/bash ",
-    optionD: "DOM",
-    correctAnswer: "B"},
+    choiceA: "for loops",
+    choiceB: "console.log",
+    choiceC: "teminal/bash ",
+    choiceD: "DOM",
+    correctAnswer: "b"},
 {
     question: "Arrays in JavaScript can be used to store ____.?",
-    optionA: "booleans",
-    optionB: "other arrays",
-    optionC: "numbers and strings",
-    optionD: "all of the above",
-    correctAnswer: "D"},
+    choiceA: "booleans",
+    choiceB: "other arrays",
+    choiceC: "numbers and strings",
+    choiceD: "all of the above",
+    correctAnswer: "d"},
 {
     question: "What does DOM stand for?",
-    optionA: "Display Object Marker",
-    optionB: "Docuemnt Object Model",
-    optionC: "Decrease Ordinance Mode",
-    optionD: "Digital Operation Max",
-    correctAnswer: "B"},
+    choiceA: "Display Object Marker",
+    choiceB: "Document Object Model",
+    choiceC: "Decrease Ordinance Mode",
+    choiceD: "Digital Operation Max",
+    correctAnswer: "b"},
 
 ];
 
+var finalQuestionIndex = quizQuestions.length;
+var currentQuestionIndex = 0;
+var timeLeft = 60;
+var timerInterval;
+var score = 0;
+var correct;
+
 // A funtion for going through the arrays that contain the quiz questions. They generate the questions and answers.
 function generateQuizQuestion(){
-    gameEndEl.style.display = "none";
+    gameEnd.style.display = "none";
     if (currentQuestionIndex === finalQuestionIndex){
         return showScore();
-    }
-    var questionCurrent = quizQuestions[currentQuestionIndex];
-        questionsEl.innerHTML = "<p>" + 
-        questionCurrent.question + "<p>";
-            buttonA.innerHTML = questionCurrent.optionA;
-            buttonB.innerHTML = questionCurrent.optionB;
-            buttonC.innerHTML = questionCurrent.optionC;
-            buttonD.innerHTML = questionCurrent.optionD;
+    } 
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+    questionsEl.innerHTML = "<p>" + 
+    currentQuestion.question + "</p>";
+        buttonA.innerHTML = currentQuestion.choiceA;
+        buttonB.innerHTML = currentQuestion.choiceB;
+        buttonC.innerHTML = currentQuestion.choiceC;
+        buttonD.innerHTML = currentQuestion.choiceD;
 };
 
 // The start quiz function that starts the timer. Will also disply the first quiz question.
 function startQuiz(){
-    gameEndEl.style.display = "none";
-    startQuizEl.style.display = "none";
+    gameEnd.style.display = "none";
+    startPage.style.display = "none";
     generateQuizQuestion();
 
 // The timer function
-    timerInterval = setInterval(
-        function() {
+timerInterval = setInterval(function() {
         timeLeft--;
-        timerEl.textContent = "Time Left" + timeLeft;
-
-            if(timeLeft === 0) {
-                clearInterval(timerInterval);
-                showScore();
-            }
-        }, 1000
-    );
-    quizEl.style.display = "block";
+        TimerEl.textContent = "Time left: " + timeLeft;
+    
+        if(timeLeft === 0) {
+          clearInterval(timerInterval);
+          showScore();
+        }
+      }, 1000);
+    quizEL.style.display = "block";
 }
 // Function that shows the end page that will disply your score after quiz completion or timer runs out.
 function showScore(){
+    quizEL.style.display = "none"
+    gameEnd.style.display = "flex";
     clearInterval(timerInterval);
-    inputName.value ="";
-    finalScoreEl.innerHTML = "You got" + score + "out of" + quizQuestions.length + "corrent!";
+    InputName.value = "";
+    finalScoreEl.innerHTML = "You got " + score + " out of " + quizQuestions.length + " correct!";
 }
 
 // When we click submit we run the highscore function that saves and adds a string to the array of high scores 
 // saved in local storage. The new user name and score are pushed into the same array that is saved in local storage. 
 // It will then run the function to show high scores. 
 submitScoreBt.addEventListener("click", function highscore(){
-
-    if(inputName.value === ""){
-        alert("Name can not be blank");
+    if(InputName.value === "") {
+        alert("Initials cannot be blank");
         return false;
-    } else {
-        var savedHighscore = JSON.parse(localStorage.getItem("savedHighscores")) || [];
-        var currentUser = inputName.value.trim();
+    }else{
+        var savedHighscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
+        var currentUser = InputName.value.trim();
         var currentHighscore = {
-            name : currentUser, score : score
+            name : currentUser,
+            score : score
         };
-    savedHighscore.push(currentHighscore);
+    
+        gameEnd.style.display = "none";
+        highscoreCont.style.display = "flex";
+        highscorePage.style.display = "block";
+        gameEndBt.style.display = "flex";
+        
+    savedHighscores.push(currentHighscore);
     localStorage.setItem("savedHighscores", JSON.stringify(savedHighscores));
     generateHighscores();
+
     }
+    
 });
 
 // This function clears out the list of high scores and generates a new high scre list based on local storage.
-function generateHighscores() {
+function generateHighscores(){
     highscoreName.innerHTML = "";
     highscoreScore.innerHTML = "";
-    var highscoresEl =JSON.parse(localStorage.getItem("savedHighscores")) || [];
-    for (i=0; i,highscores.length; i++){
-        var newNameSpan = docuemnt.createElement("li");
+    var highscores = JSON.parse(localStorage.getItem("savedHighscores")) || [];
+    for (i=0; i<highscores.length; i++){
+        var newNameSpan = document.createElement("li");
         var newScoreSpan = document.createElement("li");
-        newNameSpan.textContent = highscoresEl[i].name;
-        newScoreSpan.textContent = highscoresEl[i].score;
+        newNameSpan.textContent = highscores[i].name;
+        newScoreSpan.textContent = highscores[i].score;
         highscoreName.appendChild(newNameSpan);
         highscoreScore.appendChild(newScoreSpan);
     }
 }
 
 // This function clears the text from the high score board and clears the high scores from local storage.
+function showHighscore(){
+    startPage.style.display = "none"
+    gameEnd.style.display = "none";
+    highscoreContainer.style.display = "flex";
+    highscorePage.style.display = "block";
+    gameEndBt.style.display = "flex";
+
+    generateHighscores();
+}
+
+// This function clears the high scores from local storage and clears the text.
 function clearScore(){
     window.localStorage.clear();
     highscoreName.textContent = "";
@@ -159,9 +178,9 @@ function clearScore(){
 // This function resets all the variables and shows the homepage again to replay the quiz.
 function replayQuiz(){
     highscoreCont.style.display = "none";
-    gameEndEl.style.display = "none";
-    startQuizEl.style.display = "flex";
-    timeLeft = 90;
+    gameEnd.style.display = "none";
+    startPage.style.display = "flex";
+    timeLeft = 60;
     score = 0;
     currentQuestionIndex = 0;
 }
@@ -169,14 +188,24 @@ function replayQuiz(){
 // This function checks the answers 
 function checkAnswer(answer){
     correct = quizQuestions[currentQuestionIndex].correctAnswer;
-    if (answer === correct && currentQuestionIndex !== finalQuestionIndex) {
+// Alert the answer is correct.
+    if (answer === correct && 
+        currentQuestionIndex !== 
+        finalQuestionIndex){
         score++;
         alert("Correct!");
-        questionCurrentIndex++;
+        currentQuestionIndex++;
+        generateQuizQuestion();
+// Alert if answer is wrong.
+    }else if (answer !== correct && 
+        currentQuestionIndex !== 
+        finalQuestionIndex){
+        alert("Incorrect.")
+        currentQuestionIndex++;
         generateQuizQuestion();
     }else{
         showScore();
-        }
+    }
 }
 
 // Start the quiz button!
